@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Pagination from "./pagination";
-import errorPage from "@/app/Error/error.";
-import {Player} from "@lottiefiles/react-lottie-player";
+import Error from "@/app/pageComponent/error.";
+import Loading from "@/app/pageComponent/loading";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -21,7 +21,7 @@ function Tablecomp() {
                 setBooks(response.data);
                 setLoading(false);
             } catch (err) {
-                setError('Error fetching books. Please try again later.');
+                setError('pageComponent fetching books. Please try again later.');
                 setLoading(false);
             }
         };
@@ -45,15 +45,8 @@ function Tablecomp() {
         currentPage * ITEMS_PER_PAGE
     );
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <Player
-        autoplay
-        loop
-        src="https://lottie.host/ec0ce35f-391c-4933-9b6a-efe68671e076/Xapo2aZIgE.json"
-        Style={{height:'100px', width:"100px"}}
-    >
-
-    </Player>;
+    if (loading) return <Loading/>;
+    if (error) return <Error/>;
 
     return (
         <div className="lg:p-16 md:p-12">

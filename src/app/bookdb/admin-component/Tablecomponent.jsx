@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Pagination from "../../app-component/pagination";
 import { Pencil, Trash2 } from "lucide-react";
+import Loading from "@/app/pageComponent/loading";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -19,8 +20,8 @@ function Tablecomp() {
             const response = await axios.get('http://localhost:9595/api/v1/bookdb');
             setBooks(response.data);
         } catch (err) {
-            console.error("Error fetching books:", err);
-            setDeleteStatus({ message: 'Error fetching books. Please try again later.', type: 'error' });
+            console.error("pageComponent fetching books:", err);
+            setDeleteStatus({ message: 'pageComponent fetching books. Please try again later.', type: 'error' });
         } finally {
             setLoading(false);
         }
@@ -52,8 +53,8 @@ function Tablecomp() {
             // Refresh the book list after successful deletion
             await fetchBooks();
         } catch (err) {
-            console.error("Error deleting book:", err);
-            setDeleteStatus({ message: 'Error deleting book. Please try again later.', type: 'error' });
+            console.error("pageComponent deleting book:", err);
+            setDeleteStatus({ message: 'pageComponent deleting book. Please try again later.', type: 'error' });
         } finally {
             setLoading(false);
         }
@@ -70,15 +71,7 @@ function Tablecomp() {
         currentPage * ITEMS_PER_PAGE
     );
 
-    if (loading) return <div role="status" className="max-w-max animate-pulse mt-14 p-16">
-        <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
-        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
-        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
-        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
-        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
-        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
-        <span className="sr-only">Loading...</span>
-    </div>;
+    if (loading) return <Loading/>;
 
     return (
         <div className="lg:p-16 md:p-12">

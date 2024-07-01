@@ -56,7 +56,7 @@ function Page() {
                 file: null
             });
         } catch (err) {
-            setError('Error uploading book. Please try again later.');
+            setError('pageComponent uploading book. Please try again later.');
         } finally {
             setLoading(false);
         }
