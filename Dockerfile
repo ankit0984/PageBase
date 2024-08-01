@@ -13,7 +13,7 @@ FROM node:18-alpine AS runner
 COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/build ./build
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/node_modules /node_modules
 COPY --from=builder /app/.next ./.next
 
 EXPOSE 3000
