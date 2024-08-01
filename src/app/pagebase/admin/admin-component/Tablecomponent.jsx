@@ -76,7 +76,7 @@ function Tablecomp() {
     return (
         <div className="lg:p-16 md:p-12">
             <div className="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-                Our Books
+                <h1>Books</h1>
                 <p className="mt-1 text-sm w-1.6 font-normal text-gray-500 dark:text-gray-400">
                     Our database features a wide array of books exploring the intersection of technology and biology.
                 </p>
