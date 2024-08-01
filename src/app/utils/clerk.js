@@ -1,11 +1,10 @@
 // lib/clerk.js
-import { ClerkProvider } from '@clerk/nextjs';
-import { RedirectToSignIn, SignedIn, SignedOut } from '@clerk/nextjs';
+import {RedirectToSignIn, SignedOut, SignedIn, SignIn} from "@clerk/nextjs";
 
 export function withAuth(Component) {
     return function AuthenticatedComponent(props) {
         return (
-            <>
+        <>
                 <SignedIn>
                     <Component {...props} />
                 </SignedIn>

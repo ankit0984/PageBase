@@ -1,7 +1,8 @@
 "use client"
 import React, { useState } from 'react'
-import Navigation from "@/app/bookdb/admin-component/Navbar";
+import Navigation from "@/app/pagebase/admin/admin-component/Navbar";
 import axios from "axios";
+import {withAuth} from "@/app/utils/clerk";
 
 function Page() {
     const [formData, setFormData] = useState({
@@ -143,4 +144,4 @@ function Page() {
     )
 }
 
-export default Page
+export default withAuth(Page)

@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Pagination from "../../app-component/pagination";
+import Pagination from "../../../app-component/pagination";
 import { Pencil, Trash2 } from "lucide-react";
 import Loading from "@/app/pageComponent/loading";
 

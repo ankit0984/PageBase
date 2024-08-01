@@ -1,9 +1,13 @@
 "use client"
-import Navigation from '@/app/bookdb/admin-component/Navbar'
 import React from 'react'
-import Tablecomp from "@/app/bookdb/admin-component/Tablecomponent";
+import Navigation from '@/app/pagebase/admin/admin-component/Navbar'
+
+import Tablecomp from "@/app/pagebase/admin/admin-component/Tablecomponent";
+import {withAuth} from "@/app/utils/clerk";
+
 
 function page() {
+
     return (
         <div>
             <Navigation/>
@@ -12,7 +16,7 @@ function page() {
     )
 }
 
-export default page
+export default withAuth(page);
 
 
 

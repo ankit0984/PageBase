@@ -5,7 +5,7 @@ import Lottie from "lottie-react";
 export default function Error() {
     return (
 
-        <div className="min-h-0 mt-14 flex justify-center items-center">
+        <div className="min-h-0 mt-14 p-14 flex justify-center items-center">
             <Lottie height="50" width="200"
             animationData={animationData}  />
         </div>

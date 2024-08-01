@@ -36,7 +36,7 @@ function Tablecomp() {
 
     const filteredBooks = books.filter(book =>
         book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        book.Category?.toLowerCase().includes(searchQuery.toLowerCase())
+        book.category?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     const totalPages = Math.ceil(filteredBooks.length / ITEMS_PER_PAGE);
@@ -49,7 +49,7 @@ function Tablecomp() {
     if (error) return <Error/>;
 
     return (
-        <div className="lg:p-16 md:p-12">
+        <div className=" mt-14 lg:p-16 md:p-12">
             <div className="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800">
                 Our Books
                 <p className="mt-1 text-sm w-1.6 font-normal text-gray-500 dark:text-gray-400">

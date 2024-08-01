@@ -1,75 +1,75 @@
 "use client"
-import React, { useState, useRef, useEffect } from 'react';
-import Link from 'next/link';
+import React, { useState } from 'react'
+import { IoLogoBuffer } from 'react-icons/io'
+import { FiMenu, FiX } from 'react-icons/fi'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+// import { tabs } from '../data/data'
 
+const tabs = [
+  { name: 'Books', path: '/' },
+  { name: 'Notes', path: '/notes' },
+  { name: 'PPtx', path: '/pptx' },
+  { name: 'Contact', path: '/contact' }
+];
 
-const Navigation = () => {
-  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const dropdownRef = useRef(null);
-
-  const toggleUserDropdown = () => setIsUserDropdownOpen(!isUserDropdownOpen);
-  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsUserDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+export default function Navbar() {
+  const pathname = usePathname()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-          {/*<Image src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" width={32} height={32} />*/}
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">PageBase</span>
-        </Link>
-        <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <div className="relative">
+      <div className="fixed top-0 left-0 right-0 z-50 flex justify-center">
+        <nav className="w-full sm:w-auto bg-white bg-opacity-80 backdrop-blur-md shadow-lg sm:rounded-full px-4 sm:px-6 py-2 mt-0 sm:mt-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <IoLogoBuffer className="h-8 w-8 text-indigo-500" />
+              <h1 className="ml-2 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-purple-500 to-blue-500">
+                PageBase
+              </h1>
+            </div>
+            <div className="sm:hidden">
+              <button
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  className="text-gray-500 hover:text-gray-700 focus:outline-none"
+              >
+                {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+              </button>
+            </div>
+            <div className="hidden sm:flex sm:space-x-4 ml-6">
+              {tabs.map((tab, index) => (
+                  <Link
+                      key={index}
+                      href={tab.path || '#'}
+                      className={`px-3 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
+                          pathname === tab.path
+                              ? 'bg-indigo-500 text-white'
+                              : 'text-gray-700 hover:bg-indigo-100'
+                      }`}
+                  >
+                    {tab.name}
+                  </Link>
+              ))}
+            </div>
           </div>
-          <button
-            data-collapse-toggle="navbar-user"
-            type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-            aria-controls="navbar-user"
-            aria-expanded={isMobileMenuOpen}
-            onClick={toggleMobileMenu}
-          >
-            <span className="sr-only">Open main menu</span>
-            <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15"/>
-            </svg>
-          </button>
-        </div>
-        <div className={`items-center justify-between ${isMobileMenuOpen ? 'block' : 'hidden'} w-full md:flex md:w-auto md:order-1`} id="navbar-user">
-          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            <li>
-              <Link href="/" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Books</Link>
-            </li>
-            <li>
-              <Link href="/notes" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">Notes</Link>
-            </li>
-            <li>
-              <Link href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">PPtx</Link>
-            </li>
-            {/*<li>*/}
-            {/*  <Link href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Pricing</Link>*/}
-            {/*</li>*/}
-            {/*<li>*/}
-            {/*  <Link href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</Link>*/}
-            {/*</li>*/}
-          </ul>
-        </div>
+          {isMenuOpen && (
+              <div className="sm:hidden mt-4 space-y-2">
+                {tabs.map((tab, index) => (
+                    <Link
+                        key={index}
+                        href={tab.path || '#'}
+                        className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                            pathname === tab.path
+                                ? 'bg-indigo-500 text-white'
+                                : 'text-gray-700 hover:bg-indigo-100'
+                        }`}
+                        onClick={() => setIsMenuOpen(false)}
+                    >
+                      {tab.name}
+                    </Link>
+                ))}
+              </div>
+          )}
+        </nav>
       </div>
-    </nav>
-  );
-};
-
-export default Navigation;
+  )
+}
